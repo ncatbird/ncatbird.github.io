@@ -3,8 +3,8 @@
 
 <head>
 
-    
-        <title>n</title>
+        <link rel="icon" type="image/x-icon" href="favicon.svg"> 
+        <title>ncatbird</title>
         <script src="https://unpkg.com/typewriter-effect@latest/dist/core.js"></script>
         <audio id="music" src="msc.mp3" autoplay loop onplaying="" style="display: none;"></audio>
         <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.13.0/css/all.css">
@@ -14,7 +14,7 @@
 
 <body>
     <div id="main" class="center">
-        <div id="overlay" onclick="music.play(); addStuff();"><span class="header center" id="status_text"></span></div>
+        <div id="overlay" onclick="music.play(); music.volume=0.1; addStuff();"><span class="header center" id="status_text"></span></div>
     </div>
     <script>
         function handleAnimations() {
@@ -58,7 +58,8 @@
 
         function addStuff() {
             at("main").innerHTML =
-                `<h1 name="top"    id = "status_text" class="header animated"><a href="https://projectboost.ru/uploader/1.php">загрузчик</a></h1>`;
+                `<h1 name="top"    id = "status_text" class="header animated"><a href="https://projectboost.ru/uploader/1.php">загрузчик</a></h1>
+                <p  name="bottom" id = "text2" class="textiboi animated">сайт с ссылкой на загрузчик</p>`;
 
             handleAnimations();
         }
@@ -112,11 +113,39 @@
                 console.log("animations over");
                 var doc = document.getElementById("main");
                 var inner = doc.innerHTML;
+                doc.innerHTML +=
+                    `<div class="textiboi">
+                <a id="typElement"></a></div>
+                <div class="textiboi">
+				<a class="textiboi animated fadeIn"  href="https://youtu.be/dQw4w9WgXcQ">важно</a>`;
                 console.log("running typewrite");
                 indefiniteWrite();
 
             }, 550);
 
+        }
+
+        function indefiniteWrite() {
+            let strs = [
+                "вау",
+                "как полезно",
+                "'небезопасно'"
+            ];
+
+            var num = getRandomInt(strs.length);
+
+            console.log("writing " + strs[num]);
+
+            var typElement = document.getElementById('typElement');
+
+            var typewriter = new Typewriter(typElement, {
+                loop: true
+            });
+
+            typewriter.typeString(strs[num]).pauseFor(5000).deleteAll().pauseFor(100).callFunction(() => {
+                typewriter.stop();
+                indefiniteWrite();
+            }).start();
         }
 
 
